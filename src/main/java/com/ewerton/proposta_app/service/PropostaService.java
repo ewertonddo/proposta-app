@@ -8,6 +8,8 @@ import com.ewerton.proposta_app.repository.PropostaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PropostaService {
 
@@ -18,5 +20,9 @@ public class PropostaService {
         Proposta proposta = PropostaMapper.INSTANCE.convertDtoToProposta(request);
         repository.save(proposta);
         return PropostaMapper.INSTANCE.convertPropostaToDto(proposta);
+    }
+
+    public List<PropostaResponseDto> obterProposta() {
+        return PropostaMapper.INSTANCE.convertListPropostaToDto(repository.findAll());
     }
 }
