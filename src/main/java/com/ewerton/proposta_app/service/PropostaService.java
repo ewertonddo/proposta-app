@@ -13,13 +13,22 @@ import java.util.List;
 @Service
 public class PropostaService {
 
+    public static final String PROPOSTA_PENDENTE_EX = "proposta-pendente.ex";
+
     @Autowired
     private PropostaRepository repository;
+    
+    @Autowired
+    private NotificacaoService notificacaoService;
 
     public PropostaResponseDto criar(PropostaRequestDto request) {
         Proposta proposta = PropostaMapper.INSTANCE.convertDtoToProposta(request);
         repository.save(proposta);
-        return PropostaMapper.INSTANCE.convertPropostaToDto(proposta);
+
+        PropostaResponseDto response = PropostaMapper.INSTANCE.convertPropostaToDto(proposta);
+        notificacaoService.notificar(response, PROPOSTA_PENDENTE_EX);
+        
+        return response;
     }
 
     public List<PropostaResponseDto> obterProposta() {
