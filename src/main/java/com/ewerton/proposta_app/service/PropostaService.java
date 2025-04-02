@@ -5,7 +5,7 @@ import com.ewerton.proposta_app.dto.PropostaResponseDto;
 import com.ewerton.proposta_app.entity.Proposta;
 import com.ewerton.proposta_app.mapper.PropostaMapper;
 import com.ewerton.proposta_app.repository.PropostaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,12 +13,16 @@ import java.util.List;
 @Service
 public class PropostaService {
 
-    public static final String PROPOSTA_PENDENTE_EX = "proposta-pendente.ex";
+    public PropostaService(@Value("${rabbitmq.propostapendente.exchange}") String exchangePropostaPendente,
+                           PropostaRepository repository,
+                           NotificacaoService notificacaoService) {
+        this.exchangePropostaPendente = exchangePropostaPendente;
+        this.repository = repository;
+        this.notificacaoService = notificacaoService;
+    }
 
-    @Autowired
+    private String exchangePropostaPendente;
     private PropostaRepository repository;
-    
-    @Autowired
     private NotificacaoService notificacaoService;
 
     public PropostaResponseDto criar(PropostaRequestDto request) {
@@ -26,7 +30,7 @@ public class PropostaService {
         repository.save(proposta);
 
         PropostaResponseDto response = PropostaMapper.INSTANCE.convertPropostaToDto(proposta);
-        notificacaoService.notificar(response, PROPOSTA_PENDENTE_EX);
+        notificacaoService.notificar(response, exchangePropostaPendente);
         
         return response;
     }
