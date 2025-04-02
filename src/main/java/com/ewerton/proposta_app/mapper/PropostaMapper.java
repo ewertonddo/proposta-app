@@ -20,6 +20,7 @@ public interface PropostaMapper {
     @Mapping(target = "usuario.cpf", source = "cpf")
     @Mapping(target = "usuario.telefone", source = "telefone")
     @Mapping(target = "usuario.renda", source = "renda")
+    @Mapping(target = "integrada", constant = "true")
     Proposta convertDtoToProposta(PropostaRequestDto request);
 
     @Mapping(target = "nome", source = "usuario.nome")
