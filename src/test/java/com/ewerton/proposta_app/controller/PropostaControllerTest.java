@@ -21,17 +21,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 class PropostaControllerTest {
 
-    public static final String NOME = "Jose";
-    public static final String SOBRENOME = "Silva";
-    public static final String TELEFONE = "11999999999";
-    public static final String CPF = "12345678909";
-    public static final double RENDA = 1000.0;
-    public static final String VALOR_SOLICITADO_FMT = "500";
-    public static final int PRAZO_PAGAMENTO = 12;
-    public static final boolean APROVADO = true;
-    public static final String OBS = "obs";
-    public static final double VALOR_SOLICITADO = 200.0;
-    public static final Long ID = Long.valueOf(0);
+    private static final String NOME = "Jose";
+    private static final String SOBRENOME = "Silva";
+    private static final String TELEFONE = "11999999999";
+    private static final String CPF = "12345678909";
+    private static final double RENDA = 1000.0;
+    private static final String VALOR_SOLICITADO_FMT = "500";
+    private static final int PRAZO_PAGAMENTO = 12;
+    private static final boolean APROVADO = true;
+    private static final String OBS = "obs";
+    private static final double VALOR_SOLICITADO = 200.0;
+    private static final Long ID = Long.valueOf(0);
 
     private PropostaResponseDto propostaResponseDto;
     private PropostaRequestDto propostaRequestDto;
@@ -73,7 +73,7 @@ class PropostaControllerTest {
     }
 
     void start(){
-        propostaResponseDto = new PropostaResponseDto(ID, NOME
+        propostaResponseDto  = new PropostaResponseDto(ID, NOME
                 , SOBRENOME, TELEFONE, CPF
                 , RENDA, VALOR_SOLICITADO_FMT, PRAZO_PAGAMENTO
                 , APROVADO, OBS);
